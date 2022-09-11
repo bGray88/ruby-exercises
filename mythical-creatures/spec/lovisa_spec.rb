@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/lovisa'
+require '../lib/lovisa'
 
 RSpec.describe Lovisa do
   it 'she has a title' do

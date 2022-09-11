@@ -1,5 +1,5 @@
-require './spec/spec_helper'
-require './lib/centaur'
+require './spec_helper'
+require '../lib/centaur'
 
 RSpec.describe Centaur do
   it 'has a name' do
@@ -19,7 +19,7 @@ RSpec.describe Centaur do
 
   it 'makes a horse sound when it runs' do
     centaur = Centaur.new('George', 'Palomino')
-    expect(centaur.run).to eq('Clop clop clop clop!')
+    expect(centaur.run). to eq('Clop clop clop clop!')
   end
 
   it 'when first created, it is not cranky' do
