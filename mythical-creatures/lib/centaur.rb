@@ -6,6 +6,7 @@ class Centaur
         @standing = true
         @cranky = false
         @activities = 0
+        @feeling_ill = false
     end
 
     def shoot
@@ -53,4 +54,22 @@ class Centaur
         @standing ? (return "NO!") : \
             (@activities = 0; return "sleeping")
     end
+
+    def drink_potion
+        if cranky?
+            if @standing
+                @cranky = false
+                @activities = 0
+            end
+        else
+            @feeling_ill = true
+            @activities = 50
+        end
+    end
+
+    def sick?
+        return @feeling_ill
+    end
+
+
 end
