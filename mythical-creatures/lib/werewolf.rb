@@ -5,7 +5,7 @@ class Werewolf
         @name = name
         @location = location
         @type = [{human: true, hungry: false, eat: "Yuck!"}, \
-            {human: false, hungry: true, eat: "Yum!"}]
+                 {human: false, hungry: true, eat: "Yum!"}]
         @type_sel = [0, 1]
         @curr_type = @type_sel[0]
         @state = @type[@curr_type]
@@ -16,7 +16,6 @@ class Werewolf
     end
 
     def change!
-        @state = @type[@curr_type]
         @type_sel = @type_sel.reverse
         @curr_type = @type_sel[0]
         @state = @type[@curr_type]
@@ -32,9 +31,11 @@ class Werewolf
 
     def eat(person)
         eat = @state[:eat]
-        @state[:hungry] = false
-        @state[:eat] = "Yuck!"
-        person.eaten()
+        if eat == "Yum!"
+            person.eaten()
+            @state[:hungry] = false
+            @state[:eat] = "Yuck!"
+        end
         return eat
     end
 end
