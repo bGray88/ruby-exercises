@@ -6,23 +6,16 @@ class Centaur
         @standing = true
         @cranky = false
         @activities = 0
+        @CRANK_FACTOR = 3
         @feeling_ill = false
     end
 
     def shoot
-        if !@cranky && @standing
-            @activities += 1
-            cranky?
-            return "Twang!!!"
-        else
-            return "NO!"
-        end
+        return check_status("Twang!!!", "NO!", @activities += 1, !cranky? && standing?)
     end
 
     def run
-        @standing ? (@activities += 1; cranky?; \
-            return "Clop clop clop clop!") : \
-            (return "NO!")
+        return check_status("Clop clop clop clop!", "NO!", @activities += 1, standing?)
     end
 
     def stand_up
@@ -34,11 +27,7 @@ class Centaur
     end
 
     def cranky?
-        if @activities > 2
-            @cranky = true
-        else
-            @cranky = false
-        end
+        @activities >= @CRANK_FACTOR ? @cranky = true : nil
         return @cranky
     end
 
@@ -47,23 +36,21 @@ class Centaur
     end
 
     def laying?
-        return !@standing
+        return !standing?
     end
 
     def sleep
-        @standing ? (return "NO!") : \
-            (@activities = 0; return "sleeping")
+        return check_status("sleeping", "NO!", fully_rested, !standing?)
     end
 
     def drink_potion
         if cranky?
-            if @standing
-                @cranky = false
-                @activities = 0
+            if standing?
+                fully_rested
             end
         else
             @feeling_ill = true
-            @activities = 50
+            @activities = @CRANK_FACTOR
         end
     end
 
@@ -71,5 +58,13 @@ class Centaur
         return @feeling_ill
     end
 
+    def fully_rested
+        @activities = 0
+        @feeling_ill = false
+        @cranky = false
+    end
 
+    def check_status(pos_msg, neg_msg, stat_update, stat_chk)
+        stat_chk ? (stat_update; (return pos_msg)) : (return neg_msg)
+    end
 end
