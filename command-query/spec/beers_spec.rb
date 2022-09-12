@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'beers'
+require './spec_helper'
+require '../lib/beers'
 
 RSpec.describe Beers do
   it 'starts at 99' do

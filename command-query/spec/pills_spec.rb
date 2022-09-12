@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'pills'
+require './spec_helper'
+require '../lib/pills'
 
 RSpec.describe Pills do
   it 'bottle starts with 60 pills' do
@@ -8,7 +8,7 @@ RSpec.describe Pills do
     expect(pills.count).to eq(60)
   end
 
-  xit 'it pops a pill' do
+  it 'it pops a pill' do
     pills = Pills.new
 
     pills.pop

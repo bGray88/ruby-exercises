@@ -1,6 +1,6 @@
-require 'rspec'
-require_relative 'child'
-require_relative 'children'
+require './spec_helper'
+require '../lib/child'
+require '../lib/children'
 
 RSpec.describe Children do
   it 'has no eldest' do

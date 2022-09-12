@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'adult'
+require './spec_helper'
+require '../lib/adult'
 
 RSpec.describe Adult do
   it 'does not get drunk too easily' do

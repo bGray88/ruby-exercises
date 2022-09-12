@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'tire'
+require './spec_helper'
+require '../lib/tire'
 
 RSpec.describe Tire do
   it 'does not start out flat' do
@@ -8,12 +8,11 @@ RSpec.describe Tire do
     expect(tire.flat?).to be false
   end
 
-  xit 'can have a blowout' do
+  it 'can have a blowout' do
     tire = Tire.new
 
     tire.blow_out
     expect(tire.flat?).to be true
   end
-
 end
 

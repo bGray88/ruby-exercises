@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'dog'
+require './spec_helper'
+require '../lib/dog'
 
 RSpec.describe Dog do
   it 'is hungry' do
@@ -8,7 +8,7 @@ RSpec.describe Dog do
     expect(dog.hungry?).to be true
   end
 
-  xit 'eats' do
+  it 'eats' do
     dog = Dog.new
     dog.eat
 
