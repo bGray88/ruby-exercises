@@ -1,7 +1,6 @@
 class Pills
     def initialize
         @bottle = (1..60).to_a
-        @count = @bottle.count
     end
 
     def count

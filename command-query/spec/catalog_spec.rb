@@ -1,6 +1,6 @@
-require 'rspec'
-require_relative 'product'
-require_relative 'catalog'
+require './spec_helper'
+require '../lib/product'
+require '../lib/catalog'
 
 RSpec.describe Catalog do
   it 'starts with no products' do

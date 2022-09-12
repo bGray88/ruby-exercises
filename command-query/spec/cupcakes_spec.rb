@@ -1,10 +1,10 @@
-require 'rspec'
-require_relative 'cupcake'
-require_relative 'cupcakes'
+require './spec_helper'
+require '../lib/cupcake'
+require '../lib/cupcakes'
 
 RSpec.describe Cupcakes do
   it 'has no sweetest when there are no cupcakes' do
-    cupcakes = Cupcake.new
+    cupcakes = Cupcakes.new
     expect(cupcakes.sweetest).to be_nil
   end
 
@@ -21,6 +21,6 @@ RSpec.describe Cupcakes do
     cupcakes << Cupcake.new('Caramel', 12)
     cupcakes << Cupcake.new('Chocolate', 8)
 
-    expect(cupcakes.sweetest.flavor).to eq('Carrot')
+    expect(cupcakes.sweetest.flavor).to eq('Caramel')
   end
 end

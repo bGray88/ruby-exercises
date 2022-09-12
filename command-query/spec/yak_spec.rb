@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'yak'
+require './spec_helper'
+require '../lib/yak'
 
 RSpec.describe Yak do
   it 'is hairy' do
@@ -8,7 +8,7 @@ RSpec.describe Yak do
     expect(yak.hairy?).to be true
   end
 
-  xit 'can be shaved' do
+  it 'can be shaved' do
     yak = Yak.new
 
     yak.shave

@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'wallet'
+require './spec_helper'
+require '../lib/wallet'
 
 RSpec.describe Wallet do
   it 'starts at zero' do

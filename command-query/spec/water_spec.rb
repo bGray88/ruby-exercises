@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'water'
+require './spec_helper'
+require '../lib/water'
 
 RSpec.describe Water do
   it 'is at room temperature' do
@@ -8,7 +8,7 @@ RSpec.describe Water do
     expect(water.temperature).to eq(295) # Measured in Kelvin
   end
 
-  xit 'can be heated' do
+  it 'can be heated' do
     water = Water.new
 
     water.heat

@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'student'
+require './spec_helper'
+require '../lib/student'
 
 RSpec.describe Student do
   it 'has a mediocre grade' do

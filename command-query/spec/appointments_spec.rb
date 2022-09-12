@@ -1,5 +1,5 @@
-require 'rspec'
-require_relative 'appointments'
+require './spec_helper'
+require '../lib/appointments'
 
 RSpec.describe Appointments do
   it 'has no appointments' do

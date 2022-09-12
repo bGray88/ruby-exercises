@@ -1,6 +1,6 @@
-require 'rspec'
-require_relative 'clearance'
-require_relative 'item'
+require './spec_helper'
+require '../lib/clearance'
+require '../lib/item'
 
 RSpec.describe Clearance do
   it 'has no items on clearance' do
