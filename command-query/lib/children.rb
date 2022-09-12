@@ -14,8 +14,4 @@ class Children
     def <<(child)
         @all_children << child
     end
-
-    def name()
-        return @all_children
-    end
 end
