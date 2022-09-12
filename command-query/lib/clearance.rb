@@ -1,14 +1,12 @@
 class Clearance
     def initialize()
         @items = []
-        @curr_disc = nil
         @high_disc = nil
         @disc_perc_get = proc {|item| item.get_discount / item.get_price.to_f}
     end
 
     def <<(item)
         if @high_disc.nil?
-            @curr_disc = @disc_perc_get.call(item)
             @high_disc = item
         else
             if check_discount(item, @high_disc)
