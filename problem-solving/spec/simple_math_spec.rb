@@ -1,4 +1,4 @@
-require "./lib/simple_math"
+require "../lib/simple_math"
 
 RSpec.describe SimpleMath do
 

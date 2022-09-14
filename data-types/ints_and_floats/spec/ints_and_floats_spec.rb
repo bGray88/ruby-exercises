@@ -23,7 +23,7 @@ RSpec.describe 'ints and floats' do
     # Using the two variables defined above,
     # divide unlucky by lucky
     # NOTE: this is integer division
-    quotient = unlucky / lucky
+    quotient = unlucky / lucky.to_int
     expect(quotient).to eq(1)
   end
 
@@ -49,7 +49,7 @@ RSpec.describe 'ints and floats' do
     lucky = 7
     # Using the variable defined above,
     # find out if the lucky number is even
-    even = lucky % 2 == 0
+    even = lucky.even?
     expect(even).to eq(false)
   end
 
@@ -57,7 +57,7 @@ RSpec.describe 'ints and floats' do
     pi = 3.14
     # Using the variable defined above,
     # round the number to the nearest whole number
-    rounded = pi.round
+    rounded = pi.to_int
     expect(rounded).to eq(3)
   end
 
@@ -65,7 +65,7 @@ RSpec.describe 'ints and floats' do
     pi = 3.14
     # Using the variable defined above,
     # round the number to one decimal place
-    rounded = ("%0.1f" % pi).to_f
+    rounded = pi.round(1)
     expect(rounded).to eq(3.1)
   end
 
