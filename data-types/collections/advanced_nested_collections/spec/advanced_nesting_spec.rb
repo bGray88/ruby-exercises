@@ -79,9 +79,8 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 5' do
     # Find a list of restaurants
-    names = []
-    stores.each {|key, value| names << key}
-    store_names = names
+    store_names = []
+    stores.each {|key, value| store_names << key}
 
     expected = [:olive_garden, :dennys, :macdonalds]
     expect(store_names).to eq(expected)
@@ -89,11 +88,10 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 6' do
     # Find dishes names for Olive Garden
-    names = []
+    dishes_names = []
     stores[:olive_garden][:dishes].each do |i|
-      names << i[:name]
+      dishes_names << i[:name]
     end
-    dishes_names = names
 
     expect(dishes_names).to eq(['Risotto', 'Steak'])
   end
@@ -113,13 +111,12 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 8' do
     # Return a list of all ingredients
     # across all restaurants
-    list = []
+    ingredients = []
     stores.each do |key, value|
       value[:dishes].each do |dish|
-        list.concat(dish[:ingredients])
+        ingredients.concat(dish[:ingredients])
       end
     end
-    ingredients = list
 
     expected = [
       "Rice",
@@ -146,23 +143,20 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 9' do
     # Return the full menu price for Olive Garden
-    prices = 0
+    full_menu_price = 0
     stores[:olive_garden][:dishes].each do |dish|
-      prices += dish[:price]
+      full_menu_price += dish[:price]
     end
-    full_menu_price = prices
 
     expect(full_menu_price).to eq(27)
   end
 
   it 'test 10' do
     # Return the full menu for Olive Garden
-    menu = {}
+    olive_garden_menu = {}
     stores[:olive_garden][:dishes].each do |dish|
-      menu[i[:name]] = dish
+      olive_garden_menu[dish[:name]] = dish
     end
-    
-    olive_garden_menu = menu
     
     expected = {
       "Risotto" => {
@@ -181,13 +175,12 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 11' do
     # Return a full menu across all restaurants
-    menu = {}
+    full_menu = {}
     stores.each do |key, value|
-      value[:dishes].each do |i|
-        menu[i[:name]] = i
+      value[:dishes].each do |dish|
+        full_menu[dish[:name]] = dish
       end
     end
-    full_menu = menu
 
     expected = {
       "Risotto" => {
