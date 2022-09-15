@@ -8,5 +8,9 @@ program = System.new
 human = Human.new("Conan")
 ogre = Ogre.new("Shrek")
 
-program.print_message(program.messages[0])
-program.battle(human, ogre)
+program.print_message(program.messages_story[0])
+if program.battle(human, ogre)
+    program.print_message(program.messages_story[1])
+else
+    print "Game Over"
+end
