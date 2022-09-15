@@ -4,6 +4,7 @@ class Hobbit
         @name = name
         @disposition = disp
         @age = 0
+        @health_pts = 100
     end
     def celebrate_birthday()
         @age += 1

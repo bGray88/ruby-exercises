@@ -5,6 +5,7 @@ class Direwolf
         @home = home
         @size = size
         @starks_to_protect = []
+        @health_pts = 100
     end
 
     def protects(humanoid)

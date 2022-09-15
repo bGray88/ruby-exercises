@@ -9,6 +9,7 @@ class Werewolf
         @type_sel = [0, 1]
         @curr_type = @type_sel[0]
         @state = @type[@curr_type]
+        @health_pts = 100
     end
 
     def human?

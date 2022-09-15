@@ -6,6 +6,7 @@ class Pirate
         @job = job
         @felonies = 0
         @booty = 0
+        @health_pts = 100
     end
 
     def cursed?()

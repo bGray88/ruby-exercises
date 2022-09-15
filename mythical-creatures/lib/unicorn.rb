@@ -4,6 +4,7 @@ class Unicorn
     def initialize(name, color = "silver")
         @name = name
         @color = color
+        @health_pts = 100
     end
 
     def silver?()

@@ -8,6 +8,7 @@ class Centaur
         @activities = 0
         @CRANK_FACTOR = 3
         @feeling_ill = false
+        @health_pts = 100
     end
 
     def shoot

@@ -3,6 +3,7 @@ class Medusa
     def initialize(name)
         @name = name
         @statues = []
+        @health_pts = 100
     end
 
     def stare(person)

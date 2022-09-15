@@ -5,6 +5,7 @@ class Wizard
         @name = name
         @bearded = bearded
         @cast = 0
+        @health_pts = 100
     end
 
     def bearded?()

@@ -5,6 +5,7 @@ class Vampire
         @name = name
         @pet = pet
         @thirsty = true
+        @health_pts = 100
     end
 
     def drink()

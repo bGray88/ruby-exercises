@@ -6,6 +6,7 @@ class Dragon
         @rider = rider
         @hungry = true
         @stomach = 0
+        @health_pts = 100
     end
 
     def eat()
