@@ -5,7 +5,6 @@ class System
 
     def initialize(input)
         @player_input = input
-        @total_encounters = 0
         @messages_user = [
             "Press any key to continue...",
             "During a battle you will need to fight to survive!
@@ -39,28 +38,33 @@ class System
 
     def battle(char, *enemies)
         @battle_running = true
-        @total_encounters == 0 ? print_message(@messages_user[1]) : nil
+        @victory = false
+        char.encounter_counter == 0 ? print_message(@messages_user[1]) : nil
         
         buff_debuff(char, @items[:amulets]["strength"])
         print_request_key
         print_message(@battle_actions[0])
 
         while @battle_running
-            @next_hit = rand(0...enemies.length)
-            @battle_running = battle_turn(char, enemies[@next_hit])
-            if enemies[@next_hit].health_pts == 0
-                print "#{enemies[@next_hit].name} has been vanquished!!!\n\n"
-                enemies.delete(enemies[@next_hit])
+            battle_turn(char, enemies[char.next_hit(enemies)])
+            if enemies[char.next_hit_idx].health_pts == 0
+                enemy_death(enemies, char.next_hit_idx)
             end
             enemies.each do |enemy|
-                if enemy.health_pts != 0 && char.health_pts != 0
-                    @battle_running = battle_turn(enemy, char)
+                if enemy.status != :dead && char.status != :dead
+                    battle_turn(enemy, char)
                 end
+            end
+            if char.status == :dead
+                @battle_running = false
+            elsif enemies.empty?
+                @battle_running = false
+                @victory = true
             end
         end
 
-        @total_encounters += 1
-        char.health_pts > 0 ? (return true) : nil
+        char.encounter
+        return @victory
     end
 
     def battle_turn(giver, reciever)
@@ -73,9 +77,9 @@ class System
             attack(giver, reciever)
         end
 
+        reciever.health_pts == 0 ? reciever.change_status(:dead) : nil
         print_status(giver, reciever)
         sleep(2)
-        giver.health_pts == 0 || reciever.health_pts == 0 ? (return false) : (return true)
     end
 
     def process_action(action, actor, bystander)
@@ -94,6 +98,15 @@ class System
 
     def attack(attacker, victim)
         victim.dmg_get(attacker.attack_total)
+    end
+
+    def char_death(char)
+
+    end
+
+    def enemy_death(enemies, att_idx)
+        print "#{enemies[att_idx].name} has been vanquished!!!\n\n"
+        enemies.delete(enemies[att_idx])
     end
 
     def buff_debuff(char, amt)
