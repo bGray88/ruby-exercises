@@ -1,7 +1,7 @@
 require "io/console"
 
 class System
-    attr_reader :messages_story, :messages_userclear
+    attr_reader :messages_story, :messages_user
 
     def initialize ()
         @total_encounters = 0
@@ -9,7 +9,8 @@ class System
             "Press any key to continue...",
             "During a battle you will need to fight to survive!
             Keep your health points above zero and attack the enemy until their's
-            is depleted!"
+            is depleted!
+            Press \'k\' to attack"
         ]
         @messages_story = [
             "As you walk along the path on the way home from a hard days work
@@ -25,20 +26,29 @@ class System
             ATTACK!!!\'",
             "The story continues..."
         ]
-        @battle_actions = ["Battle!", "Player Turn", "Strike!"]
+        @battle_actions = [
+            "Battle!", "Player Turn", "Strike!"
+        ]
+        @items = {
+            amulets: {"strength" => rand(10..20)}
+            potions: {"small     => 30"}
+        }
     end
 
-    def battle(char, enemy)
+    def battle(char, *enemies)
         @battle_running = true
-        @fighters = [char, enemy]
         @total_encounters == 0 ? print_message(@messages_user[1]) : nil
-
-        buff_debuff(char)
+        
+        buff_debuff(char, @items[:amulets]["strength"])
         print_request_key
         print_message(@battle_actions[0])
         while @battle_running
-            @battle_running = battle_turn(@fighters[0], @fighters[1])
-            @fighters.reverse!
+            @battle_running = battle_turn(char, enemies[rand(0...enemies.length)])
+            enemies.each do |enemy|
+                if enemy.health_pts != 0 && char.health_pts != 0
+                    @battle_running = battle_turn(enemy, char)
+                end
+            end
         end
         @total_encounters += 1
         char.health_pts > 0 ? (return true) : nil
@@ -65,8 +75,8 @@ class System
         victim.dmg_get(attacker.attack_total)
     end
 
-    def buff_debuff(char)
-        char.change_att_mod(10)
+    def buff_debuff(char, amt)
+        char.change_att_mod(amt)
         char.update_att
     end
 

@@ -1,7 +1,7 @@
 class Ogre
     attr_reader :name, :home, :swings, :encounter_counter, :health_pts, 
     :attack_total
-    def initialize(name, home = "Swamp", att_mod = 3)
+    def initialize(name, home = "Swamp", att_mod = rand(1..2))
         @name = name
         @home = home
         @swings = 0
@@ -9,7 +9,7 @@ class Ogre
         @health_pts = 100
         @health_max = 100
         @attack_mod = att_mod
-        @attack_pow = 5
+        @attack_pow = 2
         @attack_total = @attack_mod + @attack_pow
     end
 

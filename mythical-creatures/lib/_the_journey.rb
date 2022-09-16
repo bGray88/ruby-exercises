@@ -6,10 +6,12 @@ require '../lib/ogre'
 
 program = System.new
 human = Human.new("Conan")
-ogre = Ogre.new("Shrek")
+ogre1 = Ogre.new("Shrek")
+ogre2 = Ogre.new("Chok")
+ogre3 = Ogre.new("Pfaff")
 
 program.print_message(program.messages_story[0])
-if program.battle(human, ogre)
+if program.battle(human, ogre1, ogre2, ogre3)
     program.print_message(program.messages_story[1])
 else
     print "Game Over"
