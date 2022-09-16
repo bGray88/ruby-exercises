@@ -30,8 +30,8 @@ class System
             "Battle!", "Player Turn", "Strike!"
         ]
         @items = {
-            amulets: {"strength" => rand(10..20)}
-            potions: {"small     => 30"}
+            amulets: {"strength" => rand(10..20)},
+            potions: {"small"     => 30}
         }
     end
 
@@ -42,14 +42,21 @@ class System
         buff_debuff(char, @items[:amulets]["strength"])
         print_request_key
         print_message(@battle_actions[0])
+
         while @battle_running
-            @battle_running = battle_turn(char, enemies[rand(0...enemies.length)])
+            @next_hit = rand(0...enemies.length)
+            @battle_running = battle_turn(char, enemies[@next_hit])
+            if enemies[@next_hit].health_pts == 0
+                print "#{enemies[@next_hit].name} has been vanquished!!!\n\n"
+                enemies.delete(enemies[@next_hit])
+            end
             enemies.each do |enemy|
                 if enemy.health_pts != 0 && char.health_pts != 0
                     @battle_running = battle_turn(enemy, char)
                 end
             end
         end
+
         @total_encounters += 1
         char.health_pts > 0 ? (return true) : nil
     end
@@ -58,14 +65,16 @@ class System
         if actor.is_a?(Human)
             print_message(@battle_actions[1])
             press = STDIN.getch
+
             if press.downcase == 'k'
                 attack(actor, other)
-                print_message("#{@battle_actions[2]}")
+                print_message("#{actor.name} #{@battle_actions[2]}")
             end
         else
-            print_message("#{@battle_actions[2]}")
+            print_message("#{actor.name} #{@battle_actions[2]}")
             attack(actor, other)
         end
+
         print_status(actor, other)
         sleep(2)
         actor.health_pts == 0 || other.health_pts == 0 ? (return false) : (return true)
