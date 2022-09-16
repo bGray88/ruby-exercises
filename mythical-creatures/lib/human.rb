@@ -10,6 +10,7 @@ class Human
         @attack_mod = 0
         @attack_pow = 20
         @attack_total = 0
+        @potions = {"small" => 3}
     end
 
     def dmg_get(amt)
@@ -26,8 +27,14 @@ class Human
     end
 
     def drink_potion(size)
-        @health_pts += size
-        @health_pts > @health_max ? @health_pts = @health_max : nil
+        if @potions["small"] != 0
+            @health_pts += size
+            @health_pts > @health_max ? @health_pts = @health_max : nil
+            @potions["small"] -= 1
+            return true
+        else
+            return false
+        end
     end
 
     def encounter

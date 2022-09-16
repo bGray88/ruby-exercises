@@ -1,10 +1,12 @@
 require '../lib/_system'
+require '../lib/_input'
 require '../lib/human'
 require '../lib/ogre'
 
 # The story so far...
 
-program = System.new
+input = Input.new
+program = System.new(input)
 human = Human.new("Conan")
 ogre1 = Ogre.new("Shrek")
 ogre2 = Ogre.new("Chok")

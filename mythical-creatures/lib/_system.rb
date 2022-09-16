@@ -3,14 +3,16 @@ require "io/console"
 class System
     attr_reader :messages_story, :messages_user
 
-    def initialize ()
+    def initialize(input)
+        @player_input = input
         @total_encounters = 0
         @messages_user = [
             "Press any key to continue...",
             "During a battle you will need to fight to survive!
             Keep your health points above zero and attack the enemy until their's
             is depleted!
-            Press \'k\' to attack"
+            Press \'k\' to attack
+            Press \'p\' for potion"
         ]
         @messages_story = [
             "As you walk along the path on the way home from a hard days work
@@ -27,7 +29,7 @@ class System
             "The story continues..."
         ]
         @battle_actions = [
-            "Battle!", "Player Turn", "Strike!"
+            "-Battle!-", "-Player Turn-", "*Strike!*", "^Healed!^", "!Empty Slot!"
         ]
         @items = {
             amulets: {"strength" => rand(10..20)},
@@ -61,23 +63,33 @@ class System
         char.health_pts > 0 ? (return true) : nil
     end
 
-    def battle_turn(actor, other)
-        if actor.is_a?(Human)
+    def battle_turn(giver, reciever)
+        if giver.is_a?(Human)
             print_message(@battle_actions[1])
-            press = STDIN.getch
-
-            if press.downcase == 'k'
-                attack(actor, other)
-                print_message("#{actor.name} #{@battle_actions[2]}")
-            end
+            @player_input.read_input
+            process_action(@player_input.process, giver, reciever)
         else
-            print_message("#{actor.name} #{@battle_actions[2]}")
-            attack(actor, other)
+            print_message("#{giver.name} #{@battle_actions[2]}")
+            attack(giver, reciever)
         end
 
-        print_status(actor, other)
+        print_status(giver, reciever)
         sleep(2)
-        actor.health_pts == 0 || other.health_pts == 0 ? (return false) : (return true)
+        giver.health_pts == 0 || reciever.health_pts == 0 ? (return false) : (return true)
+    end
+
+    def process_action(action, actor, bystander)
+        case action
+        when :attack
+            attack(actor, bystander)
+            print_message("#{actor.name} #{@battle_actions[2]}")
+        when :potion
+            if actor.drink_potion(@items[:potions]["small"])
+                print_message("#{actor.name} #{@battle_actions[3]}")
+            else
+                print_message("#{actor.name} #{@battle_actions[4]}")
+            end
+        end
     end
 
     def attack(attacker, victim)
@@ -89,8 +101,8 @@ class System
         char.update_att
     end
 
-    def print_message(request)
-        print %W[#{request}\n].join(' ')
+    def print_message(message)
+        print %W[#{message}\n].join(' ')
     end
 
     def print_status(char, enemy)
@@ -98,9 +110,14 @@ class System
                  #{enemy.name}: #{enemy.health_pts}\n\n].join(' ')
     end
 
+    def print_overwrite(message)
+        print %W[#{message}\r].join(' ')
+    end
+
     def print_request_key
-        print @messages_user[0]
-        STDIN.getch
-        print ".......................\r"
+        print_overwrite(@messages_user[0])
+        @player_input.read_input
+        @player_input.clear_last_input
+        print "****************************************\n\n"
     end
 end
