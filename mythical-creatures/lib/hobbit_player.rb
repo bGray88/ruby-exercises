@@ -1,4 +1,4 @@
-class Hobbit
+class HobbitPlayer
     attr_reader :name, :disposition, :age
     def initialize(name, disp = "homebody")
         @name = name

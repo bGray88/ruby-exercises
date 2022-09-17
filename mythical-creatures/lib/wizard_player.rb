@@ -1,4 +1,4 @@
-class Wizard
+class WizardPlayer
     attr_reader :name
 
     def initialize(name, bearded: true)
